@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaming Logo Editor</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#080812;
+  color:white;
+  min-height:100vh;
+}
+
+.header{
+  text-align:center;
+  padding:25px 15px;
+  background:linear-gradient(135deg,#09091a,#11112b);
+  border-bottom:1px solid #25253c;
+}
+
+.header h1{
+  color:#00eaff;
+  font-size:28px;
+  text-shadow:0 0 15px #00eaff;
+}
+
+.header p{
+  color:#aaa;
+  margin-top:8px;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:#121220;
+  border:1px solid #292940;
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 0 20px #0008;
+}
+
+.card h2{
+  color:#00eaff;
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  color:#bbb;
+  margin:14px 0 7px;
+}
+
+input[type="text"],
+select{
+  width:100%;
+  padding:13px;
+  border-radius:10px;
+  border:1px solid #33334d;
+  background:#080812;
+  color:white;
+  font-size:16px;
+  outline:none;
+}
+
+input[type="color"]{
+  width:100%;
+  height:45px;
+  border:2px solid #33334d;
+  border-radius:10px;
+  background:#080812;
+}
+
+input[type="range"]{
+  width:100%;
+  accent-color:#00aaff;
+}
+
+.buttons{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+
+button{
+  flex:1;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.download{
+  background:#00eaff;
+  color:#001015;
+}
+
+.reset{
+  background:#ff3158;
+  color:white;
+}
+
+.preview{
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+
+canvas{
+  width:100%;
+  max-width:500px;
+  aspect-ratio:1/1;
+  border-radius:15px;
+  background:#080812;
+  display:block;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>🎮 GAMING LOGO EDITOR</h1>
+  <p>Create your gaming logo instantly</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h2>⚙️ Logo Settings</h2>
+
+    <label>Gaming Name</label>
+    <input type="text" id="name" value="GAMER">
+
+    <label>Text Color</label>
+    <input type="color" id="textColor" value="#00eaff">
+
+    <label>Glow Color</label>
+    <input type="color" id="glowColor" value="#00eaff">
+
+    <label>Glow Strength</label>
+    <input type="range" id="glow" min="0" max="50" value="20">
+
+    <label>Font Size</label>
+    <input type="range" id="fontSize" min="30" max="130" value="70">
+
+    <label>Font Style</label>
+    <select id="fontStyle">
+      <option value="bold">Bold</option>
+      <option value="normal">Normal</option>
+      <option value="italic bold">Italic Bold</option>
+      <option value="900">Extra Bold</option>
+    </select>
+
+    <label>Background</label>
+    <input type="color" id="bgColor" value="#080812">
+
+    <div class="buttons">
+      <button class="download" id="download">⬇ Download PNG</button>
+      <button class="reset" id="reset">Reset</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>👀 Preview</h2>
+
+    <div class="preview">
+      <canvas id="canvas" width="1000" height="1000"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const nameInput = document.getElementById("name");
+const textColor = document.getElementById("textColor");
+const glowColor = document.getElementById("glowColor");
+const glow = document.getElementById("glow");
+const fontSize = document.getElementById("fontSize");
+const fontStyle = document.getElementById("fontStyle");
+const bgColor = document.getElementById("bgColor");
+
+function drawLogo(){
+
+  const w = canvas.width;
+  const h = canvas.height;
+
+  // Background
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = bgColor.value;
+  ctx.fillRect(0,0,w,h);
+
+  // Soft background glow
+  const gradient = ctx.createRadialGradient(
+    w/2,h/2,50,
+    w/2,h/2,500
+  );
+
+  gradient.addColorStop(0, glowColor.value + "35");
+  gradient.addColorStop(0.5, glowColor.value + "12");
+  gradient.addColorStop(1, "#00000000");
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0,0,w,h);
+
+  // Text
+  let size = Number(fontSize.value);
+
+  ctx.font = fontStyle.value + " " + size + "px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  ctx.shadowColor = glowColor.value;
+  ctx.shadowBlur = Number(glow.value);
+
+  ctx.fillStyle = textColor.value;
+
+  ctx.fillText(
+    nameInput.value || "GAMER",
+    w/2,
+    h/2
+  );
+
+  // Extra sharp layer
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = textColor.value;
+
+  ctx.fillText(
+    nameInput.value || "GAMER",
+    w/2,
+    h/2
+  );
+}
+
+[
+  nameInput,
+  textColor,
+  glowColor,
+  glow,
+  fontSize,
+  fontStyle,
+  bgColor
+].forEach(element => {
+  element.addEventListener("input", drawLogo);
+  element.addEventListener("change", drawLogo);
+});
+
+// PNG DOWNLOAD - MOBILE FRIENDLY
+document.getElementById("download").addEventListener("click", function(){
+
+  drawLogo();
+
+  const dataURL = canvas.toDataURL("image/png");
+
+  const link = document.createElement("a");
+  link.href = dataURL;
+  link.download = "gaming-logo.png";
+  link.target = "_blank";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+});
+
+
+// RESET
+document.getElementById("reset").addEventListener("click",function(){
+
+  nameInput.value = "GAMER";
+  textColor.value = "#00eaff";
+  glowColor.value = "#00eaff";
+  glow.value = 20;
+  fontSize.value = 70;
+  fontStyle.value = "bold";
+  bgColor.value = "#080812";
+
+  drawLogo();
+});
+
+drawLogo();
+
+</script>
+
+</body>
+</html>
