@@ -1,0 +1,10 @@
+{
+  "name": "LogoStudio",
+  "short_name": "LogoStudio",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#080812",
+  "theme_color": "#080812",
+  "description": "Create stylish gaming logos with LogoStudio.",
+  "orientation": "portrait"
+}
