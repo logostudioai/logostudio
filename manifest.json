@@ -1,15 +1,17 @@
 {
   "name": "LogoStudio",
   "short_name": "LogoStudio",
-  "start_url": "./",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#080812",
   "theme_color": "#080812",
-  "description": "Create stylish gaming logos with LogoStudio.",
+  "description": "Create stylish gaming logos instantly with custom text, colors, glow, fonts, and easy download options.",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
