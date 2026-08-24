@@ -4,7 +4,7 @@
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#080812",
   "theme_color": "#080812",
   "description": "Create stylish gaming logos instantly with custom text, colors, glow, fonts, and easy download options.",
