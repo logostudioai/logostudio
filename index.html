@@ -1,319 +1,790 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>LogoStudio - Free Gaming Logo Maker</title>
-<link rel="icon" type="image/png" href="icon-512.png">
 <meta name="google-site-verification" content="dCXmhPawxDpJbbbXY-qOQUCH7iX8Eo0a5V78K9-ZYf8" />
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
- <meta name="description" content="description" content="Create free gaming logos with LogoStudio. Customize your gaming name, colors, glow, fonts, and download your logo instantly.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LogoStudio - Free Gaming Logo Maker</title>
+<meta name="description" content="Create stylish gaming logos instantly with LogoStudio.">
+
+<link rel="icon" type="image/png" href="icon-512.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#080812">
-  <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
+
+<style>
+* {
+  box-sizing: border-box;
 }
 
-body{
-  background:#080812;
-  color:white;
-  min-height:100vh;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #070710;
+  color: white;
 }
 
-.header{
-  text-align:center;
-  padding:25px 15px;
-  background:linear-gradient(135deg,#09091a,#11112b);
-  border-bottom:1px solid #25253c;
+/* HEADER */
+header {
+  min-height: 90px;
+  padding: 20px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #292940;
+  background: #080812;
 }
 
-.header h1{
-  color:#00eaff;
-  font-size:28px;
-  text-shadow:0 0 15px #00eaff;
+.logo-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #08e8ff;
+  text-shadow: 0 0 15px #08e8ff;
 }
 
-.header p{
-  color:#aaa;
-  margin-top:8px;
+.logo-title span {
+  color: white;
+  text-shadow: none;
 }
 
-.container{
-  max-width:600px;
-  margin:auto;
-  padding:20px;
+.subtitle {
+  color: #aaa;
+  margin-top: 4px;
 }
 
-.card{
-  background:#121220;
-  border:1px solid #292940;
-  border-radius:20px;
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 0 20px #0008;
+.header-buttons button {
+  padding: 12px 20px;
+  margin-left: 10px;
+  border-radius: 8px;
+  border: 1px solid #777;
+  background: transparent;
+  color: white;
+  font-size: 16px;
 }
 
-.card h2{
-  color:#00eaff;
-  margin-bottom:18px;
+.header-buttons button:last-child {
+  background: #08d9f5;
+  color: #001014;
+  border: none;
 }
 
-label{
-  display:block;
-  color:#bbb;
-  margin:14px 0 7px;
+/* DASHBOARD */
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr 1fr;
+  gap: 14px;
+  padding: 25px;
+}
+
+.panel {
+  background: #10101c;
+  border: 1px solid #292940;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 0 20px rgba(0, 220, 255, 0.04);
+}
+
+.panel h2 {
+  margin-top: 0;
+  color: #08e8ff;
+  font-size: 21px;
+}
+
+label {
+  display: block;
+  margin-top: 22px;
+  margin-bottom: 8px;
+  color: #ddd;
+  font-size: 16px;
 }
 
 input[type="text"],
-select{
-  width:100%;
-  padding:13px;
-  border-radius:10px;
-  border:1px solid #33334d;
-  background:#080812;
-  color:white;
-  font-size:16px;
-  outline:none;
+select {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #393950;
+  background: #05050c;
+  color: white;
+  font-size: 16px;
 }
 
-input[type="color"]{
-  width:100%;
-  height:45px;
-  border:2px solid #33334d;
-  border-radius:10px;
-  background:#080812;
+input[type="color"] {
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+  border: 3px solid #292940;
+  background: transparent;
 }
 
-input[type="range"]{
-  width:100%;
-  accent-color:#00aaff;
+input[type="range"] {
+  width: 100%;
+  accent-color: #08bde8;
 }
 
-.buttons{
-  display:flex;
-  gap:10px;
-  margin-top:18px;
+/* PREVIEW */
+.preview {
+  text-align: center;
 }
 
-button{
-  flex:1;
-  padding:14px;
-  border:0;
-  border-radius:12px;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
+#logoCanvas {
+  width: 100%;
+  max-width: 650px;
+  aspect-ratio: 1.6 / 1;
+  border-radius: 12px;
+  background: #050509;
+  border: 1px solid #252535;
 }
 
-.download{
-  background:#00eaff;
-  color:#001015;
+.buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
 }
 
-.reset{
-  background:#ff3158;
-  color:white;
+.buttons button {
+  flex: 1;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.preview{
-  width:100%;
-  display:flex;
-  justify-content:center;
+.reset {
+  background: transparent;
+  border: 1px solid #555;
+  color: white;
 }
 
-canvas{
-  width:100%;
-  max-width:500px;
-  aspect-ratio:1/1;
-  border-radius:15px;
-  background:#080812;
-  display:block;
+.download {
+  background: #08d9f5;
+  border: none;
+  color: #001014;
+  font-weight: bold;
+}
+
+/* BACKGROUND */
+.gradient-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.gradient {
+  height: 55px;
+  border-radius: 10px;
+  border: 2px solid #333;
+  cursor: pointer;
+}
+
+.g1 {
+  background: linear-gradient(135deg, #00eaff, #6a00ff);
+}
+
+.g2 {
+  background: linear-gradient(135deg, #001aff, #00aaff);
+}
+
+.g3 {
+  background: linear-gradient(135deg, #ff0055, #7000ff);
+}
+
+.g4 {
+  background: linear-gradient(135deg, #00c896, #004cff);
+}
+
+.upload {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  border: 1px dashed #555;
+  border-radius: 10px;
+  color: #aaa;
+}
+
+/* PRESETS */
+.presets {
+  padding: 0 25px 30px;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+.preset {
+  min-height: 130px;
+  border-radius: 12px;
+  border: 1px solid #333;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  padding-bottom: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  text-shadow: 0 0 10px black;
+}
+
+.fire {
+  background: linear-gradient(135deg, #ffb000, #700000);
+}
+
+.neon {
+  background: linear-gradient(135deg, #ff00aa, #001aff);
+}
+
+.cyber {
+  background: linear-gradient(135deg, #00eaff, #001f45);
+}
+
+.gold {
+  background: linear-gradient(135deg, #fff000, #5a3500);
+}
+
+.gaming {
+  background: linear-gradient(135deg, #8500ff, #17002d);
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+
+  .preset-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .presets {
+    padding: 0 15px 25px;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<div class="header">
-  <h1>🎮 Free Gaming Logo Maker - LogoStudio</h1>
-  <p>Create your gaming logo instantly</p>
-</div>
+<header>
+  <div>
+    <div class="logo-title">🎮 <span>Logo</span>Studio</div>
+    <div class="subtitle">Free Gaming Logo Maker</div>
+  </div>
 
-<div class="container">
+  <div class="header-buttons">
+    <button onclick="alert('Enter your gaming name, choose colors and background, then download your logo!')">
+      ❓ How to Use
+    </button>
 
-  <div class="card">
-    <h2>⚙️ Logo Settings</h2>
+    <button onclick="shareWebsite()">🔗 Share</button>
+  </div>
+</header>
+
+
+<div class="dashboard">
+
+  <!-- LOGO SETTINGS -->
+  <div class="panel">
+
+    <h2>⚙️ LOGO SETTINGS</h2>
 
     <label>Gaming Name</label>
-    <input type="text" id="name" value="GAMER">
+    <input
+      type="text"
+      id="gamingName"
+      value="GAMER"
+      maxlength="20"
+      oninput="drawLogo()"
+    >
 
     <label>Text Color</label>
-    <input type="color" id="textColor" value="#00eaff">
+    <input
+      type="color"
+      id="textColor"
+      value="#00eaff"
+      oninput="drawLogo()"
+    >
 
     <label>Glow Color</label>
-    <input type="color" id="glowColor" value="#00eaff">
+    <input
+      type="color"
+      id="glowColor"
+      value="#a000ff"
+      oninput="drawLogo()"
+    >
 
     <label>Glow Strength</label>
-    <input type="range" id="glow" min="0" max="50" value="20">
+    <input
+      type="range"
+      id="glowStrength"
+      min="0"
+      max="40"
+      value="20"
+      oninput="drawLogo()"
+    >
 
     <label>Font Size</label>
-    <input type="range" id="fontSize" min="30" max="130" value="70">
+    <input
+      type="range"
+      id="fontSize"
+      min="30"
+      max="120"
+      value="65"
+      oninput="drawLogo()"
+    >
 
     <label>Font Style</label>
-    <select id="fontStyle">
-      <option value="bold">Bold</option>
-      <option value="normal">Normal</option>
-      <option value="italic bold">Italic Bold</option>
-      <option value="900">Extra Bold</option>
+    <select id="fontStyle" onchange="drawLogo()">
+      <option value="Arial Black">Arial Black</option>
+      <option value="Impact">Impact</option>
+      <option value="Verdana">Verdana</option>
+      <option value="Trebuchet MS">Trebuchet MS</option>
+      <option value="Courier New">Courier New</option>
     </select>
 
-    <label>Background</label>
-    <input type="color" id="bgColor" value="#080812">
-
-    <div class="buttons">
-      <button class="download" id="download">⬇ Download PNG</button>
-      <button class="reset" id="reset">Reset</button>
-    </div>
   </div>
 
-  <div class="card">
-    <h2>👀 Preview</h2>
 
-    <div class="preview">
-      <canvas id="canvas" width="1000" height="1000"></canvas>
+  <!-- PREVIEW -->
+  <div class="panel preview">
+
+    <h2>👁️ LOGO PREVIEW</h2>
+
+    <canvas id="logoCanvas" width="900" height="560"></canvas>
+
+    <div class="buttons">
+
+      <button class="reset" onclick="resetLogo()">
+        🔄 Reset
+      </button>
+
+      <button class="download" onclick="downloadLogo()">
+        ⬇️ Download PNG
+      </button>
+
     </div>
+
+  </div>
+
+
+  <!-- BACKGROUND -->
+  <div class="panel">
+
+    <h2>🖼️ BACKGROUND</h2>
+
+    <label>Background Color</label>
+
+    <input
+      type="color"
+      id="backgroundColor"
+      value="#080812"
+      onchange="setBackgroundColor()"
+    >
+
+    <label>Gradients</label>
+
+    <div class="gradient-grid">
+
+      <div class="gradient g1"
+           onclick="setGradient('linear-gradient(135deg,#00eaff,#6a00ff)')">
+      </div>
+
+      <div class="gradient g2"
+           onclick="setGradient('linear-gradient(135deg,#001aff,#00aaff)')">
+      </div>
+
+      <div class="gradient g3"
+           onclick="setGradient('linear-gradient(135deg,#ff0055,#7000ff)')">
+      </div>
+
+      <div class="gradient g4"
+           onclick="setGradient('linear-gradient(135deg,#00c896,#004cff)')">
+      </div>
+
+    </div>
+
+    <label>Background Image</label>
+
+    <input
+      class="upload"
+      type="file"
+      id="backgroundImage"
+      accept="image/*"
+      onchange="loadBackground(event)"
+    >
+
+    <label>Presets</label>
+
+    <div class="gradient-grid">
+
+      <div class="gradient g1"
+           onclick="setGradient('linear-gradient(135deg,#001d29,#005cff)')">
+      </div>
+
+      <div class="gradient g2"
+           onclick="setGradient('linear-gradient(135deg,#001020,#2400ff)')">
+      </div>
+
+      <div class="gradient g3"
+           onclick="setGradient('linear-gradient(135deg,#350000,#ff3200)')">
+      </div>
+
+      <div class="gradient g4"
+           onclick="setGradient('linear-gradient(135deg,#220044,#8a00ff)')">
+      </div>
+
+    </div>
+
+    <button
+      onclick="transparentBackground()"
+      style="width:100%;margin-top:15px;padding:12px;background:#11111c;border:1px solid #444;border-radius:8px;color:white;">
+      ⬜ Transparent
+    </button>
+
   </div>
 
 </div>
+
+
+<!-- PRESET DESIGNS -->
+
+<div class="presets">
+
+  <div class="panel">
+
+    <h2>⭐ PRESET DESIGNS</h2>
+
+    <div class="preset-grid">
+
+      <div class="preset fire"
+           onclick="preset('FIRE','#ff8a00','#ff2200')">
+        FIRE
+      </div>
+
+      <div class="preset neon"
+           onclick="preset('NEON','#ff00dd','#0066ff')">
+        NEON
+      </div>
+
+      <div class="preset cyber"
+           onclick="preset('CYBER','#00eaff','#0055ff')">
+        CYBER
+      </div>
+
+      <div class="preset gold"
+           onclick="preset('GOLD','#ffd000','#ff8c00')">
+        GOLD
+      </div>
+
+      <div class="preset gaming"
+           onclick="preset('GAMING','#c000ff','#7200ff')">
+        GAMING
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
 
 <script>
 
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("logoCanvas");
 const ctx = canvas.getContext("2d");
 
-const nameInput = document.getElementById("name");
-const textColor = document.getElementById("textColor");
-const glowColor = document.getElementById("glowColor");
-const glow = document.getElementById("glow");
-const fontSize = document.getElementById("fontSize");
-const fontStyle = document.getElementById("fontStyle");
-const bgColor = document.getElementById("bgColor");
+let backgroundStyle = "#080812";
+let backgroundImage = null;
 
-function drawLogo(){
 
-  const w = canvas.width;
-  const h = canvas.height;
+/* DRAW LOGO */
 
-  // Background
-  ctx.clearRect(0,0,w,h);
-  ctx.fillStyle = bgColor.value;
-  ctx.fillRect(0,0,w,h);
+function drawLogo() {
 
-  // Soft background glow
-  const gradient = ctx.createRadialGradient(
-    w/2,h/2,50,
-    w/2,h/2,500
+  const name =
+    document.getElementById("gamingName").value || "GAMER";
+
+  const textColor =
+    document.getElementById("textColor").value;
+
+  const glowColor =
+    document.getElementById("glowColor").value;
+
+  const glow =
+    Number(document.getElementById("glowStrength").value);
+
+  const size =
+    Number(document.getElementById("fontSize").value);
+
+  const font =
+    document.getElementById("fontStyle").value;
+
+
+  /* Background */
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (backgroundImage) {
+
+    ctx.drawImage(
+      backgroundImage,
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+  } else {
+
+    if (backgroundStyle.startsWith("linear-gradient")) {
+
+      const gradient =
+        ctx.createLinearGradient(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+      gradient.addColorStop(0, "#001c29");
+      gradient.addColorStop(0.5, "#080812");
+      gradient.addColorStop(1, "#250044");
+
+      ctx.fillStyle = gradient;
+
+    } else {
+
+      ctx.fillStyle = backgroundStyle;
+
+    }
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+  }
+
+
+  /* Decorative circle */
+
+  ctx.beginPath();
+
+  ctx.arc(
+    canvas.width / 2,
+    canvas.height / 2,
+    170,
+    0,
+    Math.PI * 2
   );
 
-  gradient.addColorStop(0, glowColor.value + "35");
-  gradient.addColorStop(0.5, glowColor.value + "12");
-  gradient.addColorStop(1, "#00000000");
+  ctx.strokeStyle = glowColor;
+  ctx.lineWidth = 4;
+  ctx.shadowColor = glowColor;
+  ctx.shadowBlur = glow;
 
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0,0,w,h);
+  ctx.stroke();
 
-  // Text
-  let size = Number(fontSize.value);
 
-  ctx.font = fontStyle.value + " " + size + "px Arial";
+  /* Logo text */
+
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
-  ctx.shadowColor = glowColor.value;
-  ctx.shadowBlur = Number(glow.value);
+  ctx.font =
+    "bold " + size + "px " + font;
 
-  ctx.fillStyle = textColor.value;
+  ctx.shadowColor = glowColor;
+  ctx.shadowBlur = glow;
+
+  ctx.fillStyle = textColor;
 
   ctx.fillText(
-    nameInput.value || "GAMER",
-    w/2,
-    h/2
+    name.toUpperCase(),
+    canvas.width / 2,
+    canvas.height / 2
   );
 
-  // Extra sharp layer
+
+  /* Extra glow */
+
+  ctx.strokeStyle = glowColor;
+  ctx.lineWidth = 2;
+  ctx.strokeText(
+    name.toUpperCase(),
+    canvas.width / 2,
+    canvas.height / 2
+  );
+
   ctx.shadowBlur = 0;
-  ctx.fillStyle = textColor.value;
-
-  ctx.fillText(
-    nameInput.value || "GAMER",
-    w/2,
-    h/2
-  );
 }
 
-[
-  nameInput,
-  textColor,
-  glowColor,
-  glow,
-  fontSize,
-  fontStyle,
-  bgColor
-].forEach(element => {
-  element.addEventListener("input", drawLogo);
-  element.addEventListener("change", drawLogo);
-});
 
-// PNG DOWNLOAD - MOBILE FRIENDLY
-document.getElementById("download").addEventListener("click", function(){
+/* BACKGROUND COLOR */
+
+function setBackgroundColor() {
+
+  backgroundStyle =
+    document.getElementById("backgroundColor").value;
+
+  backgroundImage = null;
+
+  drawLogo();
+}
+
+
+/* GRADIENT */
+
+function setGradient(value) {
+
+  backgroundStyle = value;
+  backgroundImage = null;
+
+  drawLogo();
+}
+
+
+/* IMAGE */
+
+function loadBackground(event) {
+
+  const file =
+    event.target.files[0];
+
+  if (!file) return;
+
+  const reader =
+    new FileReader();
+
+  reader.onload = function(e) {
+
+    const img = new Image();
+
+    img.onload = function() {
+
+      backgroundImage = img;
+
+      drawLogo();
+
+    };
+
+    img.src = e.target.result;
+
+  };
+
+  reader.readAsDataURL(file);
+}
+
+
+/* TRANSPARENT */
+
+function transparentBackground() {
+
+  backgroundStyle = "transparent";
+  backgroundImage = null;
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
 
   drawLogo();
 
-  const dataURL = canvas.toDataURL("image/png");
+}
 
-  const link = document.createElement("a");
-  link.href = dataURL;
-  link.download = "gaming-logo.png";
-  link.target = "_blank";
 
-  document.body.appendChild(link);
+/* PRESETS */
+
+function preset(name, text, glow) {
+
+  document.getElementById("gamingName").value = name;
+  document.getElementById("textColor").value = text;
+  document.getElementById("glowColor").value = glow;
+
+  drawLogo();
+}
+
+
+/* RESET */
+
+function resetLogo() {
+
+  document.getElementById("gamingName").value = "GAMER";
+  document.getElementById("textColor").value = "#00eaff";
+  document.getElementById("glowColor").value = "#a000ff";
+  document.getElementById("glowStrength").value = 20;
+  document.getElementById("fontSize").value = 65;
+  document.getElementById("fontStyle").value = "Arial Black";
+
+  backgroundStyle = "#080812";
+  backgroundImage = null;
+
+  document.getElementById("backgroundColor").value =
+    "#080812";
+
+  drawLogo();
+}
+
+
+/* DOWNLOAD */
+
+function downloadLogo() {
+
+  const link =
+    document.createElement("a");
+
+  link.download =
+    "LogoStudio-" +
+    (document.getElementById("gamingName").value || "GAMER") +
+    ".png";
+
+  link.href =
+    canvas.toDataURL("image/png");
+
   link.click();
-  document.body.removeChild(link);
-
-});
+}
 
 
-// RESET
-document.getElementById("reset").addEventListener("click",function(){
+/* SHARE */
 
-  nameInput.value = "GAMER";
-  textColor.value = "#00eaff";
-  glowColor.value = "#00eaff";
-  glow.value = 20;
-  fontSize.value = 70;
-  fontStyle.value = "bold";
-  bgColor.value = "#080812";
+function shareWebsite() {
 
-  drawLogo();
-});
+  if (navigator.share) {
+
+    navigator.share({
+      title: "LogoStudio",
+      text: "Create your gaming logo with LogoStudio!",
+      url: window.location.href
+    });
+
+  } else {
+
+    navigator.clipboard.writeText(
+      window.location.href
+    );
+
+    alert("Website link copied!");
+
+  }
+}
+
+
+/* START */
 
 drawLogo();
 
 </script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function () {
-    navigator.serviceWorker.register("./service-worker.js")
-      .then(function () {
-        console.log("LogoStudio service worker registered");
-      })
-      .catch(function (error) {
-        console.log("Service worker registration failed:", error);
-      });
-  });
-}
-</script>
+
 </body>
 </html>
