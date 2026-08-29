@@ -1,1 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Daily Saving Notes</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+}
+
+/* Header */
+.header{
+  padding:18px 12px;
+  text-align:center;
+  border-bottom:2px solid #fff;
+}
+
+.header h1{
+  font-size:24px;
+  margin-bottom:6px;
+}
+
+.header p{
+  font-size:14px;
+}
+
+/* Summary */
+.summary{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  border-bottom:2px solid #fff;
+}
+
+.summary-box{
+  padding:14px 5px;
+  text-align:center;
+  border-right:2px solid #fff;
+}
+
+.summary-box:last-child{
+  border-right:none;
+}
+
+.summary-box span{
+  display:block;
+  font-size:12px;
+  margin-bottom:5px;
+}
+
+.summary-box strong{
+  font-size:17px;
+}
+
+/* Table */
+.table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+}
+
+.table th,
+.table td{
+  border-right:2px solid #fff;
+  border-bottom:2px solid #fff;
+  padding:10px 5px;
+  text-align:center;
+  vertical-align:middle;
+}
+
+.table th:last-child,
+.table td:last-child{
+  border-right:none;
+}
+
+.table th{
+  font-size:14px;
+  height:55px;
+}
+
+.table td{
+  font-size:13px;
+  height:58px;
+}
+
+/* Columns */
+.date-col{
+  width:27%;
+}
+
+.day-col{
+  width:28%;
+}
+
+.number-col{
+  width:20%;
+}
+
+.total-col{
+  width:25%;
+}
+
+/* Checkbox */
+.check{
+  width:20px;
+  height:20px;
+  accent-color:#fff;
+  cursor:pointer;
+}
+
+/* Completed row */
+.completed{
+  opacity:.55;
+}
+
+.completed .day-name{
+  text-decoration:line-through;
+}
+
+/* Total */
+.total{
+  font-weight:bold;
+  font-size:14px;
+}
+
+/* Notes */
+.notes{
+  padding:15px;
+  border-top:2px solid #fff;
+}
+
+.notes h2{
+  font-size:19px;
+  margin-bottom:10px;
+}
+
+textarea{
+  width:100%;
+  min-height:130px;
+  background:#000;
+  color:#fff;
+  border:2px solid #fff;
+  padding:12px;
+  font-size:15px;
+  resize:vertical;
+  outline:none;
+}
+
+button{
+  margin-top:10px;
+  width:100%;
+  padding:13px;
+  background:#fff;
+  color:#000;
+  border:none;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.reset{
+  background:#000;
+  color:#fff;
+  border:2px solid #fff;
+}
+
+/* Mobile */
+@media(max-width:420px){
+
+  .header h1{
+    font-size:21px;
+  }
+
+  .table th{
+    font-size:11px;
+  }
+
+  .table td{
+    font-size:11px;
+  }
+
+  .date-col{
+    width:27%;
+  }
+
+  .day-col{
+    width:28%;
+  }
+
+  .number-col{
+    width:18%;
+  }
+
+  .total-col{
+    width:27%;
+  }
+
+  .summary-box strong{
+    font-size:14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>💰 Daily Saving</h1>
+  <p>₹300 Every Day • 30 Days</p>
+</div>
+
+
+<!-- SUMMARY -->
+<div class="summary">
+
+  <div class="summary-box">
+    <span>Daily</span>
+    <strong>₹300</strong>
+  </div>
+
+  <div class="summary-box">
+    <span>Saved</span>
+    <strong id="saved">₹0</strong>
+  </div>
+
+  <div class="summary-box">
+    <span>Total</span>
+    <strong>₹9,000</strong>
+  </div>
+
+</div>
+
+
+<!-- SAVING TABLE -->
+<table class="table">
+
+<thead>
+<tr>
+  <th class="date-col">Date</th>
+  <th class="day-col">Day</th>
+  <th class="number-col">1 → 30</th>
+  <th class="total-col">₹ Total</th>
+</tr>
+</thead>
+
+<tbody id="savingTable">
+</tbody>
+
+</table>
+
+
+<!-- NOTES -->
+<div class="notes">
+
+  <h2>📝 Notes</h2>
+
+  <textarea
+    id="note"
+    placeholder="Yahan apni note likho..."
+  ></textarea>
+
+  <button onclick="saveNote()">
+    💾 Save Note
+  </button>
+
+  <button class="reset" onclick="resetAll()">
+    🔄 Reset Saving
+  </button>
+
+</div>
+
+
+<script>
+
+const dailyAmount = 300;
+const totalDays = 30;
+
+/* Start date */
+const startDate = new Date("2026-01-01T00:00:00");
+
+
+/* Saved days */
+let completed =
+  JSON.parse(localStorage.getItem("savingDays") || "[]");
+
+
+/* Create table */
+function createTable(){
+
+  const table =
+    document.getElementById("savingTable");
+
+  table.innerHTML = "";
+
+  for(let i=1;i<=totalDays;i++){
+
+    const date = new Date(startDate);
+
+    date.setDate(
+      startDate.getDate() + i - 1
+    );
+
+    const dayName =
+      date.toLocaleDateString(
+        "en-IN",
+        {weekday:"long"}
+      );
+
+    const dateText =
+      date.toLocaleDateString(
+        "en-IN",
+        {
+          day:"2-digit",
+          month:"2-digit",
+          year:"numeric"
+        }
+      );
+
+    const total =
+      i * dailyAmount;
+
+    const isDone =
+      completed.includes(i);
+
+    const row =
+      document.createElement("tr");
+
+    if(isDone){
+      row.classList.add("completed");
+    }
+
+    row.innerHTML = `
+
+      <td>${dateText}</td>
+
+      <td class="day-name">
+        ${dayName}
+      </td>
+
+      <td>
+        <input
+          class="check"
+          type="checkbox"
+          ${isDone ? "checked" : ""}
+          onchange="toggleDay(${i},this.checked)"
+        >
+      </td>
+
+      <td class="total">
+        ₹${total.toLocaleString("en-IN")}
+      </td>
+
+    `;
+
+    table.appendChild(row);
+  }
+
+  updateTotal();
+}
+
+
+/* Check / Uncheck */
+function toggleDay(day,checked){
+
+  if(checked){
+
+    if(!completed.includes(day)){
+      completed.push(day);
+    }
+
+  }else{
+
+    completed =
+      completed.filter(
+        x => x !== day
+      );
+
+  }
+
+  localStorage.setItem(
+    "savingDays",
+    JSON.stringify(completed)
+  );
+
+  createTable();
+}
+
+
+/* Update saved amount */
+function updateTotal(){
+
+  const saved =
+    completed.length * dailyAmount;
+
+  document.getElementById("saved")
+    .textContent =
+    "₹" +
+    saved.toLocaleString("en-IN");
+}
+
+
+/* Save Note */
+function saveNote(){
+
+  const note =
+    document.getElementById("note").value;
+
+  localStorage.setItem(
+    "savingNote",
+    note
+  );
+
+  alert("✅ Note saved!");
+}
+
+
+/* Load Note */
+function loadNote(){
+
+  document.getElementById("note")
+    .value =
+    localStorage.getItem(
+      "savingNote"
+    ) || "";
+}
+
+
+/* Reset */
+function resetAll(){
+
+  if(!confirm(
+    "Kya aap saving aur note reset karna chahte ho?"
+  )){
+    return;
+  }
+
+  localStorage.removeItem("savingDays");
+  localStorage.removeItem("savingNote");
+
+  completed = [];
+
+  loadNote();
+  createTable();
+
+}
+
+
+/* Start */
+loadNote();
+createTable();
+
+</script>
+
+</body>
+</html>
