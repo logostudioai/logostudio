@@ -20,7 +20,12 @@ body{
   min-height:100vh;
 }
 
-/* Header */
+button,
+input,
+textarea{
+  font-family:inherit;
+}
+
 .header{
   padding:18px 12px;
   text-align:center;
@@ -33,37 +38,133 @@ body{
 }
 
 .header p{
+  font-size:13px;
+  color:#ccc;
+}
+
+.container{
+  width:100%;
+  max-width:750px;
+  margin:auto;
+}
+
+.top-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  border-bottom:2px solid #fff;
+}
+
+.top-buttons button{
+  border:0;
+  border-right:2px solid #fff;
+  border-radius:0;
+  background:#000;
+  color:#fff;
+  padding:15px 8px;
+  font-size:14px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.top-buttons button:last-child{
+  border-right:0;
+}
+
+.top-buttons button:active{
+  background:#222;
+}
+
+/* Page selector */
+
+.pages{
+  display:none;
+  border-bottom:2px solid #fff;
+}
+
+.pages.show{
+  display:block;
+}
+
+.pages-title{
+  padding:13px;
+  border-bottom:2px solid #fff;
+  font-weight:bold;
+}
+
+.page-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:12px;
+  border-bottom:1px solid #fff;
+}
+
+.page-item:last-child{
+  border-bottom:0;
+}
+
+.page-info{
+  flex:1;
+}
+
+.page-name{
+  font-weight:bold;
   font-size:14px;
 }
 
+.page-detail{
+  color:#aaa;
+  font-size:11px;
+  margin-top:4px;
+}
+
+.page-actions{
+  display:flex;
+  gap:5px;
+}
+
+.small-btn{
+  padding:8px 10px;
+  border:1px solid #fff;
+  background:#000;
+  color:#fff;
+  border-radius:5px;
+  font-size:11px;
+  cursor:pointer;
+}
+
 /* Summary */
+
 .summary{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
+  grid-template-columns:repeat(4,1fr);
   border-bottom:2px solid #fff;
 }
 
 .summary-box{
-  padding:14px 5px;
+  padding:13px 4px;
   text-align:center;
   border-right:2px solid #fff;
 }
 
 .summary-box:last-child{
-  border-right:none;
+  border-right:0;
 }
 
 .summary-box span{
   display:block;
-  font-size:12px;
+  color:#aaa;
+  font-size:10px;
   margin-bottom:5px;
 }
 
 .summary-box strong{
-  font-size:17px;
+  font-size:14px;
 }
 
 /* Table */
+
 .table{
   width:100%;
   border-collapse:collapse;
@@ -74,52 +175,54 @@ body{
 .table td{
   border-right:2px solid #fff;
   border-bottom:2px solid #fff;
-  padding:10px 5px;
+  padding:9px 3px;
   text-align:center;
   vertical-align:middle;
 }
 
 .table th:last-child,
 .table td:last-child{
-  border-right:none;
+  border-right:0;
 }
 
 .table th{
-  font-size:14px;
-  height:55px;
+  height:50px;
+  font-size:11px;
 }
 
 .table td{
-  font-size:13px;
   height:58px;
+  font-size:11px;
 }
 
-/* Columns */
 .date-col{
-  width:27%;
+  width:23%;
 }
 
 .day-col{
-  width:28%;
+  width:22%;
 }
 
 .number-col{
-  width:20%;
+  width:14%;
+}
+
+.amount-col{
+  width:18%;
 }
 
 .total-col{
-  width:25%;
+  width:23%;
 }
 
-/* Checkbox */
-.check{
-  width:20px;
-  height:20px;
-  accent-color:#fff;
-  cursor:pointer;
+.day-name{
+  font-weight:bold;
 }
 
-/* Completed row */
+.sunday{
+  color:#aaa;
+}
+
 .completed{
   opacity:.55;
 }
@@ -128,86 +231,180 @@ body{
   text-decoration:line-through;
 }
 
-/* Total */
-.total{
+/* Checkbox */
+
+.check{
+  width:19px;
+  height:19px;
+  accent-color:#fff;
+  cursor:pointer;
+}
+
+/* Holiday */
+
+.holiday-box{
+  margin-top:5px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:3px;
+  font-size:9px;
+}
+
+.holiday-check{
+  width:14px;
+  height:14px;
+  accent-color:#fff;
+  cursor:pointer;
+}
+
+/* Weekly total */
+
+.week-total{
+  background:#111;
   font-weight:bold;
-  font-size:14px;
 }
 
 /* Notes */
+
 .notes{
   padding:15px;
   border-top:2px solid #fff;
 }
 
 .notes h2{
-  font-size:19px;
+  font-size:18px;
   margin-bottom:10px;
 }
 
 textarea{
   width:100%;
   min-height:130px;
+  resize:vertical;
   background:#000;
   color:#fff;
   border:2px solid #fff;
+  border-radius:0;
   padding:12px;
-  font-size:15px;
-  resize:vertical;
   outline:none;
+  font-size:14px;
 }
 
-button{
-  margin-top:10px;
+textarea::placeholder{
+  color:#777;
+}
+
+.save-note{
   width:100%;
+  margin-top:10px;
   padding:13px;
   background:#fff;
   color:#000;
-  border:none;
-  font-size:15px;
+  border:2px solid #fff;
   font-weight:bold;
   cursor:pointer;
 }
 
-.reset{
+.settings{
+  padding:15px;
+  border-top:2px solid #fff;
+}
+
+.settings h2{
+  font-size:18px;
+  margin-bottom:12px;
+}
+
+.setting{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.setting label{
+  font-size:13px;
+  color:#ccc;
+}
+
+.setting input{
+  width:130px;
+  padding:9px;
   background:#000;
   color:#fff;
   border:2px solid #fff;
+  outline:none;
 }
 
-/* Mobile */
-@media(max-width:420px){
+.new-page{
+  width:100%;
+  padding:13px;
+  background:#fff;
+  color:#000;
+  border:0;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.delete-page{
+  width:100%;
+  margin-top:10px;
+  padding:13px;
+  background:#000;
+  color:#fff;
+  border:2px solid #fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.footer{
+  text-align:center;
+  color:#777;
+  padding:20px 10px;
+  font-size:11px;
+}
+
+@media(max-width:430px){
 
   .header h1{
     font-size:21px;
   }
 
+  .summary-box strong{
+    font-size:12px;
+  }
+
   .table th{
-    font-size:11px;
+    font-size:9px;
   }
 
   .table td{
-    font-size:11px;
+    font-size:9px;
   }
 
   .date-col{
-    width:27%;
+    width:24%;
   }
 
   .day-col{
-    width:28%;
+    width:23%;
   }
 
   .number-col{
+    width:13%;
+  }
+
+  .amount-col{
     width:18%;
   }
 
   .total-col{
-    width:27%;
+    width:22%;
   }
 
-  .summary-box strong{
-    font-size:14px;
+  .holiday-box{
+    font-size:8px;
   }
 }
 </style>
@@ -215,102 +412,353 @@ button{
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <h1>💰 Daily Saving</h1>
-  <p>₹300 Every Day • 30 Days</p>
-</div>
+<div class="container">
 
+  <!-- HEADER -->
 
-<!-- SUMMARY -->
-<div class="summary">
-
-  <div class="summary-box">
-    <span>Daily</span>
-    <strong>₹300</strong>
+  <div class="header">
+    <h1>💰 Daily Saving</h1>
+    <p id="pageSubtitle">30 Days • ₹300 Daily</p>
   </div>
 
-  <div class="summary-box">
-    <span>Saved</span>
-    <strong id="saved">₹0</strong>
+
+  <!-- BUTTONS -->
+
+  <div class="top-buttons">
+
+    <button onclick="createNewPage()">
+      ➕ New 30 Days
+    </button>
+
+    <button onclick="togglePages()">
+      📂 Saved Pages
+    </button>
+
   </div>
 
-  <div class="summary-box">
-    <span>Total</span>
-    <strong>₹9,000</strong>
+
+  <!-- SAVED PAGES -->
+
+  <div id="pagesBox" class="pages">
+
+    <div class="pages-title">
+      📂 My Saving Pages
+    </div>
+
+    <div id="pagesList"></div>
+
   </div>
 
-</div>
+
+  <!-- SUMMARY -->
+
+  <div class="summary">
+
+    <div class="summary-box">
+      <span>Daily</span>
+      <strong id="dailyDisplay">₹300</strong>
+    </div>
+
+    <div class="summary-box">
+      <span>Saved</span>
+      <strong id="savedDisplay">₹0</strong>
+    </div>
+
+    <div class="summary-box">
+      <span>Target</span>
+      <strong id="targetDisplay">₹9,000</strong>
+    </div>
+
+    <div class="summary-box">
+      <span>Days</span>
+      <strong id="daysDisplay">0/30</strong>
+    </div>
+
+  </div>
 
 
-<!-- SAVING TABLE -->
-<table class="table">
+  <!-- TABLE -->
 
-<thead>
-<tr>
-  <th class="date-col">Date</th>
-  <th class="day-col">Day</th>
-  <th class="number-col">1 → 30</th>
-  <th class="total-col">₹ Total</th>
-</tr>
-</thead>
+  <table class="table">
 
-<tbody id="savingTable">
-</tbody>
+    <thead>
 
-</table>
+      <tr>
+        <th class="date-col">Date</th>
+        <th class="day-col">Day</th>
+        <th class="number-col">Save</th>
+        <th class="amount-col">Amount</th>
+        <th class="total-col">₹ Total</th>
+      </tr>
+
+    </thead>
+
+    <tbody id="savingTable"></tbody>
+
+  </table>
 
 
-<!-- NOTES -->
-<div class="notes">
+  <!-- NOTES -->
 
-  <h2>📝 Notes</h2>
+  <div class="notes">
 
-  <textarea
-    id="note"
-    placeholder="Yahan apni note likho..."
-  ></textarea>
+    <h2>📝 Notes</h2>
 
-  <button onclick="saveNote()">
-    💾 Save Note
-  </button>
+    <textarea
+      id="note"
+      placeholder="Yahan apni note likho..."
+    ></textarea>
 
-  <button class="reset" onclick="resetAll()">
-    🔄 Reset Saving
-  </button>
+    <button class="save-note" onclick="saveNote()">
+      💾 Save Note
+    </button>
+
+  </div>
+
+
+  <!-- SETTINGS -->
+
+  <div class="settings">
+
+    <h2>⚙️ Settings</h2>
+
+    <div class="setting">
+
+      <label>
+        Daily Amount
+      </label>
+
+      <input
+        type="number"
+        id="dailyInput"
+        min="1"
+        value="300"
+        onchange="changeDailyAmount()"
+      >
+
+    </div>
+
+    <div class="setting">
+
+      <label>
+        Start Date
+      </label>
+
+      <input
+        type="date"
+        id="startInput"
+        onchange="changeStartDate()"
+      >
+
+    </div>
+
+  </div>
+
+
+  <!-- DELETE -->
+
+  <div style="padding:15px;border-top:2px solid #fff;">
+
+    <button class="delete-page" onclick="deleteCurrentPage()">
+      🗑️ Delete Current Page
+    </button>
+
+  </div>
+
+
+  <div class="footer">
+    Daily Saving Notes • Data automatically saved on this phone
+  </div>
 
 </div>
 
 
 <script>
 
-const dailyAmount = 300;
-const totalDays = 30;
+/* =====================================================
+   STORAGE
+===================================================== */
 
-/* Start date */
-const startDate = new Date("2026-01-01T00:00:00");
-
-
-/* Saved days */
-let completed =
-  JSON.parse(localStorage.getItem("savingDays") || "[]");
+const STORAGE_KEY = "dailySavingPages_v2";
 
 
-/* Create table */
+/* =====================================================
+   DEFAULT PAGE
+===================================================== */
+
+function createDefaultPage(){
+
+  return {
+
+    id: Date.now(),
+
+    name: "Saving Page 1",
+
+    startDate: "2026-07-23",
+
+    dailyAmount: 300,
+
+    totalDays: 30,
+
+    completed: [],
+
+    holidays: [],
+
+    note: ""
+
+  };
+
+}
+
+
+/* =====================================================
+   LOAD PAGES
+===================================================== */
+
+let pages =
+  JSON.parse(
+    localStorage.getItem(STORAGE_KEY) || "null"
+  );
+
+
+if(!pages || !Array.isArray(pages) || pages.length === 0){
+
+  pages = [createDefaultPage()];
+
+  savePages();
+
+}
+
+
+/* =====================================================
+   CURRENT PAGE
+===================================================== */
+
+let currentPageId =
+  localStorage.getItem("currentSavingPageId");
+
+
+let currentPage =
+  pages.find(
+    page => String(page.id) === String(currentPageId)
+  );
+
+
+if(!currentPage){
+
+  currentPage = pages[0];
+
+  localStorage.setItem(
+    "currentSavingPageId",
+    currentPage.id
+  );
+
+}
+
+
+/* =====================================================
+   SAVE ALL PAGES
+===================================================== */
+
+function savePages(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(pages)
+  );
+
+}
+
+
+/* =====================================================
+   GET CURRENT PAGE
+===================================================== */
+
+function getCurrentPage(){
+
+  return pages.find(
+    page => String(page.id) === String(currentPage.id)
+  );
+
+}
+
+
+/* =====================================================
+   MONEY
+===================================================== */
+
+function money(value){
+
+  return "₹" +
+    Number(value).toLocaleString("en-IN");
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function formatDate(date){
+
+  return date.toLocaleDateString(
+    "en-IN",
+    {
+      day:"2-digit",
+      month:"2-digit",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+/* =====================================================
+   DATE PARSE
+===================================================== */
+
+function getDateFromPage(page,index){
+
+  const date =
+    new Date(
+      page.startDate + "T00:00:00"
+    );
+
+  date.setDate(
+    date.getDate() + index
+  );
+
+  return date;
+
+}
+
+
+/* =====================================================
+   CREATE TABLE
+===================================================== */
+
 function createTable(){
+
+  const page =
+    getCurrentPage();
+
+  if(!page) return;
+
 
   const table =
     document.getElementById("savingTable");
 
   table.innerHTML = "";
 
-  for(let i=1;i<=totalDays;i++){
 
-    const date = new Date(startDate);
+  let runningTotal = 0;
 
-    date.setDate(
-      startDate.getDate() + i - 1
-    );
+
+  for(let i=1;i<=page.totalDays;i++){
+
+    const date =
+      getDateFromPage(page,i-1);
+
 
     const dayName =
       date.toLocaleDateString(
@@ -318,148 +766,771 @@ function createTable(){
         {weekday:"long"}
       );
 
+
     const dateText =
-      date.toLocaleDateString(
-        "en-IN",
-        {
-          day:"2-digit",
-          month:"2-digit",
-          year:"numeric"
-        }
-      );
+      formatDate(date);
 
-    const total =
-      i * dailyAmount;
 
-    const isDone =
-      completed.includes(i);
+    const isSunday =
+      date.getDay() === 0;
+
+
+    const isHoliday =
+      page.holidays.includes(i);
+
+
+    const isCompleted =
+      page.completed.includes(i);
+
+
+    /*
+      If Sunday is holiday:
+      amount = 0
+    */
+
+    const amount =
+      isHoliday
+        ? 0
+        : page.dailyAmount;
+
+
+    /*
+      Running total only increases
+      when day is completed.
+    */
+
+    if(isCompleted && !isHoliday){
+
+      runningTotal += amount;
+
+    }
+
 
     const row =
       document.createElement("tr");
 
-    if(isDone){
+
+    if(isCompleted){
+
       row.classList.add("completed");
+
     }
+
+
+    if(isSunday){
+
+      row.classList.add("sunday");
+
+    }
+
 
     row.innerHTML = `
 
-      <td>${dateText}</td>
-
-      <td class="day-name">
-        ${dayName}
+      <td>
+        ${dateText}
       </td>
 
+
+      <td class="day-name">
+
+        ${dayName}
+
+        ${
+          isSunday
+          ? `
+            <div class="holiday-box">
+
+              <input
+                class="holiday-check"
+                type="checkbox"
+                ${isHoliday ? "checked" : ""}
+                onchange="toggleHoliday(${i},this.checked)"
+              >
+
+              Chutti
+
+            </div>
+          `
+          : ""
+        }
+
+      </td>
+
+
       <td>
+
         <input
           class="check"
           type="checkbox"
-          ${isDone ? "checked" : ""}
+          ${isCompleted ? "checked" : ""}
+          ${
+            isHoliday
+            ? "disabled"
+            : ""
+          }
           onchange="toggleDay(${i},this.checked)"
         >
+
       </td>
 
-      <td class="total">
-        ₹${total.toLocaleString("en-IN")}
+
+      <td>
+
+        ${
+          isHoliday
+          ? "₹0"
+          : money(page.dailyAmount)
+        }
+
+      </td>
+
+
+      <td class="week-total">
+
+        ${money(runningTotal)}
+
       </td>
 
     `;
 
+
     table.appendChild(row);
+
   }
 
-  updateTotal();
+
+  updateSummary();
+
 }
 
 
-/* Check / Uncheck */
+/* =====================================================
+   UPDATE SUMMARY
+===================================================== */
+
+function updateSummary(){
+
+  const page =
+    getCurrentPage();
+
+
+  const savedDays =
+    page.completed.filter(
+      day =>
+        !page.holidays.includes(day)
+    ).length;
+
+
+  const saved =
+    savedDays *
+    page.dailyAmount;
+
+
+  /*
+    Target is based on all 30 days,
+    but holidays reduce what is required.
+  */
+
+  const holidayCount =
+    page.holidays.length;
+
+
+  const target =
+    Math.max(
+      0,
+      (page.totalDays - holidayCount) *
+      page.dailyAmount
+    );
+
+
+  document.getElementById(
+    "dailyDisplay"
+  ).textContent =
+    money(page.dailyAmount);
+
+
+  document.getElementById(
+    "savedDisplay"
+  ).textContent =
+    money(saved);
+
+
+  document.getElementById(
+    "targetDisplay"
+  ).textContent =
+    money(target);
+
+
+  document.getElementById(
+    "daysDisplay"
+  ).textContent =
+    savedDays +
+    "/" +
+    page.totalDays;
+
+
+  document.getElementById(
+    "pageSubtitle"
+  ).textContent =
+    page.name +
+    " • " +
+    page.totalDays +
+    " Days • " +
+    money(page.dailyAmount) +
+    " Daily";
+
+}
+
+
+/* =====================================================
+   TOGGLE SAVING DAY
+===================================================== */
+
 function toggleDay(day,checked){
+
+  const page =
+    getCurrentPage();
+
+
+  if(page.holidays.includes(day)){
+
+    return;
+
+  }
+
 
   if(checked){
 
-    if(!completed.includes(day)){
-      completed.push(day);
+    if(!page.completed.includes(day)){
+
+      page.completed.push(day);
+
     }
 
   }else{
 
-    completed =
-      completed.filter(
+    page.completed =
+      page.completed.filter(
         x => x !== day
       );
 
   }
 
-  localStorage.setItem(
-    "savingDays",
-    JSON.stringify(completed)
-  );
+
+  savePages();
 
   createTable();
+
 }
 
 
-/* Update saved amount */
-function updateTotal(){
+/* =====================================================
+   TOGGLE SUNDAY HOLIDAY
+===================================================== */
 
-  const saved =
-    completed.length * dailyAmount;
+function toggleHoliday(day,checked){
 
-  document.getElementById("saved")
-    .textContent =
-    "₹" +
-    saved.toLocaleString("en-IN");
-}
+  const page =
+    getCurrentPage();
 
 
-/* Save Note */
-function saveNote(){
+  if(checked){
 
-  const note =
-    document.getElementById("note").value;
+    if(!page.holidays.includes(day)){
 
-  localStorage.setItem(
-    "savingNote",
-    note
-  );
+      page.holidays.push(day);
 
-  alert("✅ Note saved!");
-}
+    }
 
 
-/* Load Note */
-function loadNote(){
+    /*
+      If holiday is ON,
+      saving is automatically unchecked.
+    */
 
-  document.getElementById("note")
-    .value =
-    localStorage.getItem(
-      "savingNote"
-    ) || "";
-}
+    page.completed =
+      page.completed.filter(
+        x => x !== day
+      );
 
+  }else{
 
-/* Reset */
-function resetAll(){
+    page.holidays =
+      page.holidays.filter(
+        x => x !== day
+      );
 
-  if(!confirm(
-    "Kya aap saving aur note reset karna chahte ho?"
-  )){
-    return;
   }
 
-  localStorage.removeItem("savingDays");
-  localStorage.removeItem("savingNote");
 
-  completed = [];
+  savePages();
 
-  loadNote();
   createTable();
 
 }
 
 
-/* Start */
-loadNote();
-createTable();
+/* =====================================================
+   SAVE NOTE
+===================================================== */
+
+function saveNote(){
+
+  const page =
+    getCurrentPage();
+
+
+  page.note =
+    document.getElementById(
+      "note"
+    ).value;
+
+
+  savePages();
+
+  alert("✅ Note saved!");
+
+}
+
+
+/* =====================================================
+   LOAD NOTE
+===================================================== */
+
+function loadNote(){
+
+  const page =
+    getCurrentPage();
+
+
+  document.getElementById(
+    "note"
+  ).value =
+    page.note || "";
+
+}
+
+
+/* =====================================================
+   CHANGE DAILY AMOUNT
+===================================================== */
+
+function changeDailyAmount(){
+
+  const page =
+    getCurrentPage();
+
+
+  const value =
+    Number(
+      document.getElementById(
+        "dailyInput"
+      ).value
+    );
+
+
+  if(value <= 0){
+
+    alert("Amount ₹1 se zyada hona chahiye.");
+
+    document.getElementById(
+      "dailyInput"
+    ).value =
+      page.dailyAmount;
+
+    return;
+
+  }
+
+
+  page.dailyAmount =
+    value;
+
+
+  savePages();
+
+  createTable();
+
+}
+
+
+/* =====================================================
+   CHANGE START DATE
+===================================================== */
+
+function changeStartDate(){
+
+  const page =
+    getCurrentPage();
+
+
+  const value =
+    document.getElementById(
+      "startInput"
+    ).value;
+
+
+  if(!value){
+
+    return;
+
+  }
+
+
+  page.startDate =
+    value;
+
+
+  savePages();
+
+  createTable();
+
+}
+
+
+/* =====================================================
+   CREATE NEW PAGE
+===================================================== */
+
+function createNewPage(){
+
+  const start =
+    prompt(
+      "Start date enter karo (YYYY-MM-DD):",
+      "2026-07-23"
+    );
+
+
+  if(!start){
+
+    return;
+
+  }
+
+
+  const amountText =
+    prompt(
+      "Daily saving amount:",
+      "300"
+    );
+
+
+  if(!amountText){
+
+    return;
+
+  }
+
+
+  const amount =
+    Number(amountText);
+
+
+  if(amount <= 0){
+
+    alert("Invalid amount.");
+
+    return;
+
+  }
+
+
+  const newPage = {
+
+    id: Date.now(),
+
+    name:
+      "Saving Page " +
+      (pages.length + 1),
+
+    startDate:
+      start,
+
+    dailyAmount:
+      amount,
+
+    totalDays:
+      30,
+
+    completed: [],
+
+    holidays: [],
+
+    note: ""
+
+  };
+
+
+  pages.push(newPage);
+
+
+  currentPage =
+    newPage;
+
+
+  localStorage.setItem(
+    "currentSavingPageId",
+    currentPage.id
+  );
+
+
+  savePages();
+
+  loadCurrentPage();
+
+}
+
+
+/* =====================================================
+   LOAD CURRENT PAGE
+===================================================== */
+
+function loadCurrentPage(){
+
+  const page =
+    getCurrentPage();
+
+
+  if(!page) return;
+
+
+  document.getElementById(
+    "dailyInput"
+  ).value =
+    page.dailyAmount;
+
+
+  document.getElementById(
+    "startInput"
+  ).value =
+    page.startDate;
+
+
+  loadNote();
+
+  createTable();
+
+  renderPages();
+
+}
+
+
+/* =====================================================
+   SWITCH PAGE
+===================================================== */
+
+function switchPage(id){
+
+  const selected =
+    pages.find(
+      page =>
+        String(page.id) === String(id)
+    );
+
+
+  if(!selected) return;
+
+
+  currentPage =
+    selected;
+
+
+  localStorage.setItem(
+    "currentSavingPageId",
+    currentPage.id
+  );
+
+
+  loadCurrentPage();
+
+
+  document.getElementById(
+    "pagesBox"
+  ).classList.remove("show");
+
+}
+
+
+/* =====================================================
+   DELETE CURRENT PAGE
+===================================================== */
+
+function deleteCurrentPage(){
+
+  if(pages.length <= 1){
+
+    alert(
+      "Kam se kam 1 saving page hona zaroori hai."
+    );
+
+    return;
+
+  }
+
+
+  const page =
+    getCurrentPage();
+
+
+  const yes =
+    confirm(
+      "Kya aap '" +
+      page.name +
+      "' delete karna chahte ho?"
+    );
+
+
+  if(!yes){
+
+    return;
+
+  }
+
+
+  pages =
+    pages.filter(
+      p =>
+        String(p.id) !==
+        String(page.id)
+    );
+
+
+  currentPage =
+    pages[0];
+
+
+  localStorage.setItem(
+    "currentSavingPageId",
+    currentPage.id
+  );
+
+
+  savePages();
+
+  loadCurrentPage();
+
+}
+
+
+/* =====================================================
+   RENDER SAVED PAGES
+===================================================== */
+
+function renderPages(){
+
+  const list =
+    document.getElementById(
+      "pagesList"
+    );
+
+
+  list.innerHTML = "";
+
+
+  pages.forEach(page => {
+
+    const savedDays =
+      page.completed.filter(
+        day =>
+          !page.holidays.includes(day)
+      ).length;
+
+
+    const saved =
+      savedDays *
+      page.dailyAmount;
+
+
+    const item =
+      document.createElement("div");
+
+
+    item.className =
+      "page-item";
+
+
+    item.innerHTML = `
+
+      <div class="page-info">
+
+        <div class="page-name">
+          ${escapeHTML(page.name)}
+        </div>
+
+        <div class="page-detail">
+
+          ${page.startDate}
+          •
+          ${page.totalDays} Days
+          •
+          ${money(saved)} Saved
+
+        </div>
+
+      </div>
+
+
+      <div class="page-actions">
+
+        <button
+          class="small-btn"
+          onclick="switchPage(${page.id})"
+        >
+          Open
+        </button>
+
+      </div>
+
+    `;
+
+
+    list.appendChild(item);
+
+  });
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text){
+
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   TOGGLE SAVED PAGES
+===================================================== */
+
+function togglePages(){
+
+  const box =
+    document.getElementById(
+      "pagesBox"
+    );
+
+
+  box.classList.toggle("show");
+
+  renderPages();
+
+}
+
+
+/* =====================================================
+   START APP
+===================================================== */
+
+loadCurrentPage();
 
 </script>
 
